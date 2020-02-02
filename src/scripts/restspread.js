@@ -9,11 +9,10 @@ const usuario = {
 const nums = [1, 2, 3, 4, 5];
 
 const {nome, ...resto } = usuario;
-const [ a, b, ...c] = nums;
-
 console.log(nome, resto);
 //Lucas, {idade: 22, altura: 1.73}
 
+const [ a, b, ...c] = nums;
 console.log(a, b, c);
 //1, 2, [3, 4, 5]
 

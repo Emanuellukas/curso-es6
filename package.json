@@ -10,13 +10,15 @@
     "@babel/preset-env": "^7.8.4",
     "babel-loader": "^8.0.6",
     "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.2"
   },
   "scripts": {
-    "classes": "babel scripts/classes.js -o ./bundle.js -w",
-    "arrays": "babel scripts/arrays.js -o ./bundle.js -w",
-    "disruption": "babel scripts/disruption.js -o ./bundle.js -w",
-    "restspread": "babel scripts/restspread.js -o ./bundle.js -w",
-    "dev": "webpack --mode=development -w"
+    "classes": "babel src/scripts/classes.js -o ./public/bundle.js -w",
+    "arrays": "babel src/scripts/arrays.js -o ./public/bundle.js -w",
+    "disruption": "babel src/scripts/disruption.js -o ./public/bundle.js -w",
+    "restspread": "babel src/scripts/restspread.js -o ./public/bundle.js -w",
+    "dev": "webpack-dev-server --mode=development",
+    "build": "webpack --mode=production"
   }
 }
