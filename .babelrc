@@ -1,0 +1,5 @@
+{
+    //Arquivo de configuração do Babel que prepara as transpilações
+    //para cada ambiente específico. Neste caso, o Browser
+    "presets": ["@babel/preset-env"]
+}
