@@ -2,5 +2,8 @@
     //Arquivo de configuração do Babel que prepara as transpilações
     //para cada ambiente específico. Neste caso, o Browser
     "presets": ["@babel/preset-env"],
-    "plugins": ["@babel/plugin-proposal-object-rest-spread"]
+    "plugins": [
+        "@babel/plugin-proposal-object-rest-spread",
+        "@babel/plugin-transform-runtime"
+    ]
 }
