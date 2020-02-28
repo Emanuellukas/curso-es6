@@ -13,7 +13,7 @@ console.log(functions.mult(5, 2, 4))
 import api from './api'
 
 class App {
-    constructor (){
+    constructor() {
         this.repositories = [];
 
         this.formEl = document.getElementById('repo-form');
@@ -23,35 +23,57 @@ class App {
         this.registerHandlers();
     }
 
-    registerHandlers(){
+    registerHandlers() {
         this.formEl.onsubmit = event => this.addRepository(event);
     }
 
-    async addRepository(event){
+    setLoading(loading = true) {
+        if(loading) {
+            let loadingEl = document.createElement('span');
+            loadingEl.appendChild(document.createTextNode('Carregando...'));
+            loadingEl.setAttribute('id', 'loading');
+
+            this.formEl.appendChild(loadingEl);
+        } else {
+            document.getElementById('loading').remove();
+        }
+    }
+
+    async addRepository(event) {
         event.preventDefault();
 
         const repoInput = this.inputEl.value;
 
-        if(repoInput.lenght === 0)
+        if (repoInput.lenght === 0)
             return;
 
-        const response = await api.get(`/repos/${repoInput}`);
+        this.setLoading();
 
-        console.log(res)
+        try {
+            const response = await api.get(`/repos/${repoInput}`);
 
-        this.repositories.push({
-            name: 'rocketseat.com.br',
-            description: 'Tire a sua ideia do papel e dê vida à sua startup.',
-            avatar_url: 'https://avatars0.githubusercontent.com/u/28929274?v=4',
-            html_url: 'https://github.com/rocketseat/rocketseat.com.br'
-        });
+            const { name, description, html_url, owner: { avatar_url } } = response.data;
 
-        console.log(this.repositories);
+            this.repositories.push({
+                name,
+                description,
+                avatar_url,
+                html_url
+            });
 
-        this.render();
+            this.inputEl.value = '';
+
+            console.log(this.repositories);
+
+            this.render();
+        } catch (err) {
+            alert('O repositório não existe')
+        }
+        
+        this.setLoading(false);
     }
 
-    render(){
+    render() {
         this.listEl.innerHTML = '';
 
         this.repositories.forEach(repo => {
@@ -66,6 +88,7 @@ class App {
 
             let linkEl = document.createElement('a')
             linkEl.setAttribute('target', '_blank');
+            linkEl.setAttribute('href', repo.html_url)
             linkEl.appendChild(document.createTextNode('Acessar'));
 
             let listItemEl = document.createElement('li');
